@@ -106,9 +106,9 @@ export default function CalmaPortfolio() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <img
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Recurso%208-8-xDHTCEwIKzAukvXkAVe0WcCuyjhRAB.png"
+                src="/images/logo-calma.png"
                 alt="CALMA Estudio de Diseño"
-                className="h-12 w-auto"
+                className="h-10 sm:h-12 w-auto object-contain"
               />
             </div>
 
@@ -175,52 +175,66 @@ export default function CalmaPortfolio() {
       {/* Hero Section */}
       <section
         id="inicio"
-        className="relative min-h-screen flex items-center justify-center pt-20 px-4"
-        style={{
-          backgroundImage: isDark ? `url('/images/fondo-20-20calma-20dg-20-20-20sitio-20web.png')` : "none",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
+        className="relative min-h-screen w-full bg-black text-white flex flex-col justify-between overflow-hidden pt-24 sm:pt-28 pb-6 sm:pb-8"
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/80 to-background" />
+        {/* Background Image: Desk with Laptop */}
+        <div className="absolute inset-0 z-0 pointer-events-none select-none">
+          <img
+            src="/images/hero.jpg"
+            alt="Calma Brand Design Studio"
+            className="w-full h-full object-cover object-[72%_center] sm:object-[78%_center] lg:object-right opacity-85 lg:opacity-100 transition-opacity duration-700"
+          />
+          {/* Gradients for smooth blending into pure black: denser on mobile to ensure perfect contrast */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/90 to-black/40 sm:via-black/85 sm:to-transparent md:via-black/70 lg:via-black/30 lg:to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black" />
+        </div>
 
-        <div className="container mx-auto relative z-10">
-          <div className="max-w-4xl mx-auto text-center space-y-8">
-            <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-bold leading-tight text-balance">
-              Diseño estratégico para marcas que buscan crecer con claridad.
-            </h1>
+        {/* Main Branding Content */}
+        <div className="container mx-auto px-6 sm:px-10 md:px-16 lg:px-20 xl:px-24 relative z-10 my-auto">
+          <div className="inline-flex flex-col py-8 sm:py-10 lg:py-16 w-full max-w-[300px] sm:max-w-[390px] md:max-w-[470px] lg:max-w-[510px]">
+            {/* Logo Calma: enlarged and crisp, flat matte without neon/glow */}
+            <div className="w-full">
+              <img
+                src="/images/logo-calma.png"
+                alt="Calma Estudio de Diseño"
+                className="w-full h-auto object-contain block select-none"
+              />
+            </div>
 
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto text-pretty">
-              En Calma creamos identidades visuales, estrategias y contenido que ordenan tu marca y potencian su
-              presencia digital.
-            </p>
+            {/* Pink Divider Line: perfectly centered over tagline, flat matte brand pink, thicker (2.5px) */}
+            <div className="w-[74%] h-[2px] sm:h-[2.5px] bg-[#e3729e] my-3 sm:my-4 self-center ml-[2.8%]" />
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <Button size="lg" className="bg-calma-pink hover:bg-calma-pink-soft text-white">
-                Solicitar propuesta
-                <ChevronRight className="ml-2 h-4 w-4" />
-              </Button>
-              <Button size="lg" variant="outline" className="border-2 bg-transparent">
-                Conocer servicios
-              </Button>
+            {/* Tagline: BRAND DESIGN STUDIO: scaled to ~95% of logo width matching context capture, flush right */}
+            <div className="w-full flex justify-end">
+              <h1 className="font-serif text-[15px] sm:text-[19px] md:text-[23px] lg:text-[26.5px] font-bold tracking-[0.13em] sm:tracking-[0.14em] uppercase leading-tight select-none">
+                <span className="text-[#e3729e]">BRAND</span>{" "}
+                <span className="text-white">DESIGN STUDIO</span>
+              </h1>
             </div>
           </div>
         </div>
 
-        {/* Decorative Element */}
-        <div className="absolute bottom-0 right-0 w-32 h-32 md:w-48 md:h-48 opacity-50">
-          
+        {/* Bottom Services Strip */}
+        <div className="relative z-10 w-full pl-0 pr-4 sm:pr-8 md:pr-12 lg:pr-16 mt-auto">
+          <div className="flex items-center gap-3 sm:gap-4 md:gap-5 w-full">
+            {/* Pink line extending from the left edge of the screen - thicker (2.5px) pure matte brand pink */}
+            <div className="h-[2px] sm:h-[2.5px] bg-[#e3729e] flex-shrink-0 w-10 sm:w-20 md:w-36 lg:w-52" />
+
+            {/* Services List */}
+            <div className="text-[10px] sm:text-xs md:text-sm font-sans tracking-[0.16em] sm:tracking-[0.24em] uppercase text-zinc-300 font-light overflow-x-auto no-scrollbar whitespace-nowrap py-1 flex items-center gap-2 sm:gap-3">
+              <span>BRANDING</span>
+              <span className="text-[#e3729e] font-normal">·</span>
+              <span>REDES SOCIALES</span>
+              <span className="text-[#e3729e] font-normal">·</span>
+              <span>FOTOGRAFÍA</span>
+              <span className="text-[#e3729e] font-normal">·</span>
+              <span>DISEÑO WEB</span>
+              <span className="text-[#e3729e] font-normal">·</span>
+              <span>CONTENIDO MULTIMEDIA</span>
+            </div>
+          </div>
         </div>
       </section>
-
-      {/* Torn Paper Divider */}
-      <div
-        className="w-full h-8 bg-gradient-to-b from-transparent to-background"
-        style={{
-          clipPath:
-            "polygon(0 0, 100% 0, 100% 50%, 98% 60%, 95% 50%, 92% 65%, 88% 55%, 85% 70%, 80% 60%, 75% 75%, 70% 65%, 65% 80%, 60% 70%, 55% 85%, 50% 75%, 45% 90%, 40% 80%, 35% 95%, 30% 85%, 25% 100%, 20% 90%, 15% 95%, 10% 85%, 5% 90%, 0 80%)",
-        }}
-      />
 
       {/* Intro Block */}
       <section className="py-20 px-4">

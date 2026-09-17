@@ -26,6 +26,9 @@
   --input: oklch(0.92 0.005 60);
   --ring: oklch(0.708 0 0);
 
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+
   /* CALMA Brand Colors */
   --calma-pink: #e3729e;
   --calma-pink-soft: #e7a4c0;
@@ -150,5 +153,12 @@
 @layer utilities {
   .font-serif {
     font-family: var(--font-serif);
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }
