@@ -13,8 +13,6 @@ import {
   Camera,
   Globe,
   Check,
-  Sun,
-  Moon,
   Menu,
   X,
   Mail,
@@ -24,7 +22,6 @@ import {
 } from "lucide-react"
 
 export default function CalmaPortfolio() {
-  const [isDark, setIsDark] = useState(true)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
@@ -35,14 +32,6 @@ export default function CalmaPortfolio() {
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
-
-  useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add("dark")
-    } else {
-      document.documentElement.classList.remove("dark")
-    }
-  }, [isDark])
 
   const services = [
     {
@@ -126,22 +115,6 @@ export default function CalmaPortfolio() {
             </nav>
 
             <div className="flex items-center gap-4">
-              {/* Language Toggle */}
-              <div className="hidden md:flex items-center gap-2 text-sm">
-                <button className="font-medium text-primary">ES</button>
-                <span className="text-muted-foreground">|</span>
-                <button className="text-muted-foreground hover:text-foreground">EN</button>
-              </div>
-
-              {/* Theme Toggle */}
-              <button
-                onClick={() => setIsDark(!isDark)}
-                className="p-2 rounded-full hover:bg-accent transition-colors"
-                aria-label="Toggle theme"
-              >
-                {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-              </button>
-
               {/* CTA Button */}
               <Button className="hidden md:inline-flex bg-calma-pink hover:bg-calma-pink-soft text-white">
                 Hablemos
@@ -177,16 +150,25 @@ export default function CalmaPortfolio() {
         id="inicio"
         className="relative min-h-screen w-full bg-black text-white flex flex-col justify-between overflow-hidden pt-24 sm:pt-28 pb-6 sm:pb-8"
       >
-        {/* Background Image: Desk with Laptop */}
-        <div className="absolute inset-0 z-0 pointer-events-none select-none">
+        {/* Desktop Laptop Graphic (Transparent PNG) */}
+        <div className="absolute right-0 bottom-0 pointer-events-none select-none z-0 hidden lg:flex items-end justify-end w-[52vw] max-w-[840px] h-[82vh]">
           <img
-            src="/images/hero.jpg"
-            alt="Calma Brand Design Studio"
-            className="w-full h-full object-cover object-[72%_center] sm:object-[78%_center] lg:object-right opacity-85 lg:opacity-100 transition-opacity duration-700"
+            src="/images/hero-laptop.png"
+            alt="Calma Brand Design Studio Laptop"
+            className="w-full h-full object-contain object-bottom-right"
           />
-          {/* Gradients for smooth blending into pure black: denser on mobile to ensure perfect contrast */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/90 to-black/40 sm:via-black/85 sm:to-transparent md:via-black/70 lg:via-black/30 lg:to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black" />
+        </div>
+        {/* Subtle left vignette on desktop for seamless branding area */}
+        <div className="absolute inset-y-0 left-0 w-[45%] bg-gradient-to-r from-black via-black/70 to-transparent pointer-events-none z-[1] hidden lg:block" />
+
+        {/* Mobile / Tablet Atmospheric Background Layer */}
+        <div className="absolute inset-0 pointer-events-none select-none z-0 lg:hidden flex items-end justify-end overflow-hidden">
+          <img
+            src="/images/hero-laptop.png"
+            alt="Calma Brand Design Studio Laptop"
+            className="w-[105%] max-w-[540px] h-auto object-contain object-bottom-right opacity-45 sm:opacity-55 translate-y-2 translate-x-4"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/75" />
         </div>
 
         {/* Main Branding Content */}
