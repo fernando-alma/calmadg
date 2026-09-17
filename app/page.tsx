@@ -148,7 +148,7 @@ export default function CalmaPortfolio() {
       {/* Hero Section */}
       <section
         id="inicio"
-        className="relative min-h-screen w-full bg-black text-white flex flex-col justify-between overflow-hidden pt-24 sm:pt-28 pb-6 sm:pb-8"
+        className="relative h-[100dvh] min-h-[580px] max-h-[1080px] w-full bg-black text-white flex flex-col justify-between overflow-hidden pt-20 sm:pt-24 pb-4 sm:pb-6 lg:pb-8"
       >
         {/* Desktop Laptop Graphic (Transparent PNG) */}
         <div className="absolute right-0 bottom-0 pointer-events-none select-none z-0 hidden lg:flex items-end justify-end w-[52vw] max-w-[840px] h-[82vh]">
@@ -161,19 +161,20 @@ export default function CalmaPortfolio() {
         {/* Subtle left vignette on desktop for seamless branding area */}
         <div className="absolute inset-y-0 left-0 w-[45%] bg-gradient-to-r from-black via-black/70 to-transparent pointer-events-none z-[1] hidden lg:block" />
 
-        {/* Mobile / Tablet Atmospheric Background Layer */}
-        <div className="absolute inset-0 pointer-events-none select-none z-0 lg:hidden flex items-end justify-end overflow-hidden">
+        {/* Mobile / Tablet Laptop & Vase Graphic: sharp, crisp, 80-85% opacity, zero blur */}
+        <div className="absolute right-0 bottom-10 sm:bottom-12 pointer-events-none select-none z-0 lg:hidden flex items-end justify-end w-[85%] max-w-[440px] h-[46vh]">
           <img
             src="/images/hero-laptop.png"
             alt="Calma Brand Design Studio Laptop"
-            className="w-[105%] max-w-[540px] h-auto object-contain object-bottom-right opacity-45 sm:opacity-55 translate-y-2 translate-x-4"
+            className="w-full h-full object-contain object-bottom-right opacity-80 sm:opacity-85"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/75" />
         </div>
+        {/* Left gradient on mobile so brand text sits cleanly on pure black */}
+        <div className="absolute inset-y-0 left-0 w-3/4 sm:w-1/2 bg-gradient-to-r from-black via-black/80 to-transparent pointer-events-none z-[1] lg:hidden" />
 
         {/* Main Branding Content */}
         <div className="container mx-auto px-6 sm:px-10 md:px-16 lg:px-20 xl:px-24 relative z-10 my-auto">
-          <div className="inline-flex flex-col py-8 sm:py-10 lg:py-16 w-full max-w-[300px] sm:max-w-[390px] md:max-w-[470px] lg:max-w-[510px]">
+          <div className="inline-flex flex-col py-4 sm:py-8 lg:py-16 w-full max-w-[275px] sm:max-w-[380px] md:max-w-[460px] lg:max-w-[500px]">
             {/* Logo Calma: enlarged and crisp, flat matte without neon/glow */}
             <div className="w-full">
               <img
@@ -188,7 +189,7 @@ export default function CalmaPortfolio() {
 
             {/* Tagline: BRAND DESIGN STUDIO: scaled to ~95% of logo width matching context capture, flush right */}
             <div className="w-full flex justify-end">
-              <h1 className="font-serif text-[15px] sm:text-[19px] md:text-[23px] lg:text-[26.5px] font-bold tracking-[0.13em] sm:tracking-[0.14em] uppercase leading-tight select-none">
+              <h1 className="font-serif text-[13.5px] sm:text-[19px] md:text-[23px] lg:text-[26.5px] font-bold tracking-[0.13em] sm:tracking-[0.14em] uppercase leading-tight select-none">
                 <span className="text-[#e3729e]">BRAND</span>{" "}
                 <span className="text-white">DESIGN STUDIO</span>
               </h1>
@@ -196,14 +197,15 @@ export default function CalmaPortfolio() {
           </div>
         </div>
 
-        {/* Bottom Services Strip */}
-        <div className="relative z-10 w-full pl-0 pr-4 sm:pr-8 md:pr-12 lg:pr-16 mt-auto">
-          <div className="flex items-center gap-3 sm:gap-4 md:gap-5 w-full">
-            {/* Pink line extending from the left edge of the screen - thicker (2.5px) pure matte brand pink */}
-            <div className="h-[2px] sm:h-[2.5px] bg-[#e3729e] flex-shrink-0 w-10 sm:w-20 md:w-36 lg:w-52" />
+        {/* Bottom Services Infinite Marquee Strip (All devices) */}
+        <div className="relative z-20 w-full pl-0 pr-0 mt-auto flex items-center overflow-hidden">
+          {/* Fixed Left Pink Line */}
+          <div className="h-[2px] sm:h-[2.5px] bg-[#e3729e] flex-shrink-0 w-8 sm:w-16 md:w-28 lg:w-40 mr-3 sm:mr-5" />
 
-            {/* Services List */}
-            <div className="text-[10px] sm:text-xs md:text-sm font-sans tracking-[0.16em] sm:tracking-[0.24em] uppercase text-zinc-300 font-light overflow-x-auto no-scrollbar whitespace-nowrap py-1 flex items-center gap-2 sm:gap-3">
+          {/* Marquee Track with gradient fade on edges */}
+          <div className="relative flex-1 overflow-hidden [mask-image:linear-gradient(to_right,black_85%,transparent)] sm:[mask-image:linear-gradient(to_right,black_92%,transparent)]">
+            <div className="animate-marquee flex items-center gap-3 sm:gap-4 whitespace-nowrap text-[10.5px] sm:text-xs md:text-sm font-sans tracking-[0.18em] sm:tracking-[0.24em] uppercase text-zinc-300 font-light select-none py-1">
+              {/* Loop Items 1 */}
               <span>BRANDING</span>
               <span className="text-[#e3729e] font-normal">·</span>
               <span>REDES SOCIALES</span>
@@ -213,6 +215,43 @@ export default function CalmaPortfolio() {
               <span>DISEÑO WEB</span>
               <span className="text-[#e3729e] font-normal">·</span>
               <span>CONTENIDO MULTIMEDIA</span>
+              <span className="text-[#e3729e] font-normal mx-2">·</span>
+
+              {/* Loop Items 2 (Duplicate for seamless loop) */}
+              <span>BRANDING</span>
+              <span className="text-[#e3729e] font-normal">·</span>
+              <span>REDES SOCIALES</span>
+              <span className="text-[#e3729e] font-normal">·</span>
+              <span>FOTOGRAFÍA</span>
+              <span className="text-[#e3729e] font-normal">·</span>
+              <span>DISEÑO WEB</span>
+              <span className="text-[#e3729e] font-normal">·</span>
+              <span>CONTENIDO MULTIMEDIA</span>
+              <span className="text-[#e3729e] font-normal mx-2">·</span>
+
+              {/* Loop Items 3 */}
+              <span>BRANDING</span>
+              <span className="text-[#e3729e] font-normal">·</span>
+              <span>REDES SOCIALES</span>
+              <span className="text-[#e3729e] font-normal">·</span>
+              <span>FOTOGRAFÍA</span>
+              <span className="text-[#e3729e] font-normal">·</span>
+              <span>DISEÑO WEB</span>
+              <span className="text-[#e3729e] font-normal">·</span>
+              <span>CONTENIDO MULTIMEDIA</span>
+              <span className="text-[#e3729e] font-normal mx-2">·</span>
+
+              {/* Loop Items 4 */}
+              <span>BRANDING</span>
+              <span className="text-[#e3729e] font-normal">·</span>
+              <span>REDES SOCIALES</span>
+              <span className="text-[#e3729e] font-normal">·</span>
+              <span>FOTOGRAFÍA</span>
+              <span className="text-[#e3729e] font-normal">·</span>
+              <span>DISEÑO WEB</span>
+              <span className="text-[#e3729e] font-normal">·</span>
+              <span>CONTENIDO MULTIMEDIA</span>
+              <span className="text-[#e3729e] font-normal mx-2">·</span>
             </div>
           </div>
         </div>
