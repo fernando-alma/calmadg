@@ -35,34 +35,28 @@ export default function CalmaPortfolio() {
 
   const services = [
     {
-      icon: Palette,
       title: "Branding",
-      description: "Diseño de logo, Paleta cromática, Tipografías, Manual de marca.",
+      description: "Construimos identidades visuales memorables.",
     },
     {
-      icon: TrendingUp,
-      title: "Estrategia de marca",
-      description: "Definimos el rumbo, mensaje y posicionamiento.",
+      title: "Gestión de Redes",
+      description: "Creamos estrategias y contenido para conectar con clientes.",
     },
     {
-      icon: Instagram,
-      title: "Redes Sociales",
-      description: "Planificación y gestión con contenido estratégico.",
+      title: "Fotografía Profesional",
+      description: "Imágenes profesionales para potenciar tu comunicación.",
     },
     {
-      icon: Camera,
-      title: "Fotografía",
-      description: "Producción para productos y espacios.",
+      title: "Diseño Web",
+      description: "Sitios modernos enfocados en experiencia y conversión.",
     },
     {
-      icon: Globe,
-      title: "Web Dev",
-      description: "Sitios funcionales y estéticos.",
-    },
-    {
-      icon: Video,
       title: "Contenido Multimedia",
-      description: "Videos, reels y piezas audiovisuales.",
+      description: "Videos y piezas audiovisuales para campañas digitales.",
+    },
+    {
+      title: "Papelería Corporativa",
+      description: "Aplicaciones impresas alineadas con la identidad de marca.",
     },
   ]
 
@@ -271,35 +265,117 @@ export default function CalmaPortfolio() {
       </section>
 
       {/* Services Section */}
-      <section id="servicios" className="py-20 px-4 bg-accent/30">
-        <div className="container mx-auto">
-          <div className="text-center space-y-4 mb-12">
-            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold">Nuestros servicios</h2>
-            <p className="text-lg text-muted-foreground">Ofrecemos soluciones integrales de diseño y comunicación.</p>
-          </div>
+      <section
+        id="servicios"
+        className="bg-dark-wall relative w-full overflow-hidden text-white scroll-mt-20 lg:h-[100dvh] lg:min-h-[560px] lg:max-h-[1080px] lg:flex lg:items-center"
+      >
+        <div className="w-full lg:h-full flex flex-col lg:flex-row lg:items-stretch lg:justify-between">
+          {/* Text Column: Title & Timeline */}
+          <div className="w-full lg:w-[68%] lg:h-full flex flex-col justify-center pt-20 sm:pt-24 lg:pt-14 pb-8 lg:pb-2 pl-4 sm:pl-8 md:pl-14 lg:pl-20 xl:pl-24 pr-4 sm:pr-8 md:pr-14 lg:pr-14">
+            {/* Heading with horizontal line from left edge */}
+            <div className="flex items-center gap-2.5 sm:gap-4 md:gap-6 mb-4 sm:mb-6 md:mb-7 lg:mb-6">
+              {/* Horizontal line extending back toward the left edge of viewport */}
+              <div className="h-[1.5px] bg-white/70 w-5 sm:w-8 md:w-14 lg:w-20 -ml-4 sm:-ml-8 md:-ml-14 lg:-ml-20 xl:-ml-24 flex-shrink-0" />
+              <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-3xl xl:text-[38px] font-bold text-white tracking-tight select-none">
+                Nuestros servicios
+              </h2>
+            </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            {services.map((service, index) => (
-              <Card
-                key={index}
-                className="p-6 hover:shadow-lg hover:border-calma-pink/50 transition-all duration-300 group"
-              >
-                <div className="flex flex-col items-start gap-4">
-                  <div className="p-3 rounded-lg bg-calma-pink/10 group-hover:bg-calma-pink/20 transition-colors">
-                    <service.icon className="h-6 w-6 text-calma-pink" />
+            {/* Vertical Timeline */}
+            <div className="flex flex-col">
+              {services.map((service, index) => {
+                const isLast = index === services.length - 1
+                return (
+                  <div key={index} className="relative flex items-start gap-3 sm:gap-4 md:gap-5 lg:gap-5">
+                    {/* Indicator Column: Dot + Connecting Line */}
+                    <div className="relative flex flex-col items-center flex-shrink-0 self-stretch">
+                      {/* Pink Dot */}
+                      <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#e3729e] flex-shrink-0 mt-[5px] sm:mt-[6px] z-10" />
+                      {/* Pink Line down to next dot */}
+                      {!isLast && <div className="w-[2px] bg-[#e3729e] flex-1" />}
+                    </div>
+
+                    {/* Service Text Content */}
+                    <div className={`flex flex-col ${isLast ? "pb-0" : "pb-3 sm:pb-4 md:pb-5 lg:pb-3 xl:pb-3.5"}`}>
+                      <h3 className="font-serif text-sm sm:text-base md:text-lg lg:text-base xl:text-lg font-bold text-white tracking-wide leading-snug">
+                        {service.title}
+                      </h3>
+                      <p className="font-sans text-xs sm:text-sm md:text-base lg:text-[13px] text-zinc-300 font-light mt-0.5 sm:mt-1 leading-relaxed max-w-lg">
+                        {service.description}
+                      </p>
+                    </div>
                   </div>
-                  <h3 className="font-serif text-xl font-bold">{service.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">{service.description}</p>
-                </div>
-              </Card>
-            ))}
+                )
+              })}
+            </div>
           </div>
 
-          <div className="text-center">
-            <Button variant="outline" size="lg" className="border-2 bg-transparent">
-              Ver todos los servicios
-              <ChevronRight className="ml-2 h-4 w-4" />
-            </Button>
+          {/* Images: Right column on desktop, horizontal strip below on tablet/mobile */}
+          <div className="w-full lg:w-[32%] lg:h-full flex-shrink-0 lg:border-l border-white/5 overflow-hidden">
+            {/* Desktop: stacked vertically (flex-col, each flex-1) */}
+            <div className="hidden lg:flex flex-col h-full">
+              <div className="flex-1 overflow-hidden">
+                <img src="/images/services-img-top.webp" alt="Parche bordado Calma Estudio" className="w-full h-full object-cover object-center" />
+              </div>
+              <div className="flex-1 overflow-hidden border-t border-white/5">
+                <img src="/images/services-img-mid.webp" alt="Correa de cuero Calma Estudio" className="w-full h-full object-cover object-center" />
+              </div>
+              <div className="flex-1 overflow-hidden border-t border-white/5">
+                <img src="/images/services-img-bot.webp" alt="Papelería institucional Calma Estudio" className="w-full h-full object-cover object-center" />
+              </div>
+            </div>
+
+            {/* Mobile / Tablet: 3 images side by side as horizontal strip */}
+            <div className="flex lg:hidden flex-row h-44 sm:h-56 md:h-64 border-t border-white/10 mt-2">
+              <div className="flex-1 overflow-hidden">
+                <img src="/images/services-img-top.webp" alt="Parche bordado Calma Estudio" className="w-full h-full object-cover object-center" />
+              </div>
+              <div className="flex-1 overflow-hidden border-l border-white/10">
+                <img src="/images/services-img-mid.webp" alt="Correa de cuero Calma Estudio" className="w-full h-full object-cover object-center" />
+              </div>
+              <div className="flex-1 overflow-hidden border-l border-white/10">
+                <img src="/images/services-img-bot.webp" alt="Papelería institucional Calma Estudio" className="w-full h-full object-cover object-center" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* Marcas y Proyectos Section */}
+      <section
+        className="bg-dark-wall relative w-full py-12 sm:py-16 overflow-hidden text-white"
+      >
+        {/* Title with flanking lines */}
+        <div className="flex items-center justify-center gap-4 sm:gap-8 px-6 sm:px-12 mb-10 sm:mb-14">
+          <div className="h-[1px] bg-white/40 flex-1 max-w-[120px] sm:max-w-[200px]" />
+          <h2 className="font-sans text-xs sm:text-sm md:text-base font-semibold tracking-[0.3em] sm:tracking-[0.4em] text-white/90 uppercase whitespace-nowrap select-none">
+            Marcas y Proyectos
+          </h2>
+          <div className="h-[1px] bg-white/40 flex-1 max-w-[120px] sm:max-w-[200px]" />
+        </div>
+
+        {/* Infinite Logo Marquee */}
+        <div className="relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+          <div className="animate-marquee-logos flex items-center gap-16 sm:gap-20 md:gap-24">
+            {/* Set 1 */}
+            <img src="/images/logo-escuelas-river.webp"     alt="Escuelas River Mendoza"         className="h-10 sm:h-12 md:h-14 w-auto object-contain opacity-90 flex-shrink-0" />
+            <img src="/images/logo-victoria.webp"           alt="Victoria Sports Management"     className="h-10 sm:h-12 md:h-14 w-auto object-contain opacity-90 flex-shrink-0" />
+            <img src="/images/logo-mercedes-palomeque.webp" alt="Mercedes Palomeque Fotografía"  className="h-10 sm:h-12 md:h-14 w-auto object-contain opacity-90 flex-shrink-0" />
+            <img src="/images/logo-xauruad.webp"            alt="Xauruad Viajes y Turismo"       className="h-10 sm:h-12 md:h-14 w-auto object-contain opacity-90 flex-shrink-0" />
+            <img src="/images/logo-new-1.webp"              alt="Marca 5"                        className="h-10 sm:h-12 md:h-14 w-auto object-contain opacity-90 flex-shrink-0" />
+            <img src="/images/logo-new-2.webp"              alt="Marca 6"                        className="h-10 sm:h-12 md:h-14 w-auto object-contain opacity-90 flex-shrink-0" />
+            <img src="/images/logo-new-3.webp"              alt="Marca 7"                        className="h-10 sm:h-12 md:h-14 w-auto object-contain opacity-90 flex-shrink-0" />
+            <img src="/images/logo-new-4.webp"              alt="Marca 8"                        className="h-10 sm:h-12 md:h-14 w-auto object-contain opacity-90 flex-shrink-0" />
+            <img src="/images/logo-new-5.webp"              alt="Marca 9"                        className="h-10 sm:h-12 md:h-14 w-auto object-contain opacity-90 flex-shrink-0" />
+            {/* Set 2 — duplicate for seamless loop */}
+            <img src="/images/logo-escuelas-river.webp"     alt="Escuelas River Mendoza"         className="h-10 sm:h-12 md:h-14 w-auto object-contain opacity-90 flex-shrink-0" />
+            <img src="/images/logo-victoria.webp"           alt="Victoria Sports Management"     className="h-10 sm:h-12 md:h-14 w-auto object-contain opacity-90 flex-shrink-0" />
+            <img src="/images/logo-mercedes-palomeque.webp" alt="Mercedes Palomeque Fotografía"  className="h-10 sm:h-12 md:h-14 w-auto object-contain opacity-90 flex-shrink-0" />
+            <img src="/images/logo-xauruad.webp"            alt="Xauruad Viajes y Turismo"       className="h-10 sm:h-12 md:h-14 w-auto object-contain opacity-90 flex-shrink-0" />
+            <img src="/images/logo-new-1.webp"              alt="Marca 5"                        className="h-10 sm:h-12 md:h-14 w-auto object-contain opacity-90 flex-shrink-0" />
+            <img src="/images/logo-new-2.webp"              alt="Marca 6"                        className="h-10 sm:h-12 md:h-14 w-auto object-contain opacity-90 flex-shrink-0" />
+            <img src="/images/logo-new-3.webp"              alt="Marca 7"                        className="h-10 sm:h-12 md:h-14 w-auto object-contain opacity-90 flex-shrink-0" />
+            <img src="/images/logo-new-4.webp"              alt="Marca 8"                        className="h-10 sm:h-12 md:h-14 w-auto object-contain opacity-90 flex-shrink-0" />
+            <img src="/images/logo-new-5.webp"              alt="Marca 9"                        className="h-10 sm:h-12 md:h-14 w-auto object-contain opacity-90 flex-shrink-0" />
           </div>
         </div>
       </section>

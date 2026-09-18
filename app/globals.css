@@ -125,6 +125,18 @@
   }
 }
 
+/* ─── Shared dark-wall texture ─────────────────────────────────────────────
+   background-attachment: fixed anchors the tile to the viewport, so adjacent
+   sections using this class share the same texture position → no visible seam.
+   ─────────────────────────────────────────────────────────────────────────── */
+.bg-dark-wall {
+  background-color: #050505;
+  background-image: url('/images/black-wall-texture.webp');
+  background-repeat: repeat;
+  background-size: 360px auto;
+  background-attachment: fixed;
+}
+
 @keyframes marquee {
   0% {
     transform: translateX(0%);
@@ -144,3 +156,12 @@
   animation-play-state: paused;
 }
 
+.animate-marquee-logos {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
+.animate-marquee-logos:hover {
+  animation-play-state: paused;
+}
