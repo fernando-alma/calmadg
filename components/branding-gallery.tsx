@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react"
 import { ChevronLeft, ChevronRight, Maximize2, X } from "lucide-react"
+import { LinedHeading } from "@/components/calma/ui"
 
 type Piece = { src: string; w: number; h: number; alt: string }
 type Brand = { id: string; name: string; sector: string; pieces: Piece[]; hero?: boolean; row?: boolean }
@@ -256,14 +257,7 @@ export function BrandingGallery() {
 
   return (
     <section id="branding" className="bg-dark-wall relative w-full overflow-hidden text-white pt-4 pb-20 sm:pb-28">
-      {/* Title with flanking lines */}
-      <div className="flex items-center justify-center gap-4 sm:gap-10 lg:gap-24 mb-10 sm:mb-14">
-        <div className="h-px bg-white/80 flex-1" aria-hidden="true" />
-        <h2 className="font-serif text-lg sm:text-2xl md:text-[28px] lg:text-[32px] font-bold tracking-[0.1em] text-white uppercase whitespace-nowrap select-none">
-          Branding
-        </h2>
-        <div className="h-px bg-white/80 flex-1" aria-hidden="true" />
-      </div>
+      <LinedHeading className="mb-10 sm:mb-14">Branding</LinedHeading>
 
       {/* One big "window" (straight edges) full of windows of different sizes.
           Big columns stretch to the same height; inside, every piece can grow
@@ -279,7 +273,7 @@ export function BrandingGallery() {
                 <article key={brand.id} className="brand-block flex flex-col shrink-0" style={{ flexGrow: blockH }}>
                   <header className="brand-meta flex-none flex items-baseline justify-between gap-4 mb-3 sm:mb-4">
                     <div className="flex items-baseline gap-3 min-w-0">
-                      <span className="h-px w-6 bg-[#e3729e] self-center shrink-0" aria-hidden="true" />
+                      <span className="h-px w-6 bg-calma-pink self-center shrink-0" aria-hidden="true" />
                       <h3 className="font-serif text-lg sm:text-xl font-semibold truncate">{brand.name}</h3>
                     </div>
                     <p className="font-sans text-[10px] sm:text-[11px] uppercase tracking-[0.22em] text-white/55 text-right shrink-0">
@@ -369,7 +363,7 @@ export function BrandingGallery() {
               <button
                 type="button"
                 onClick={() => setOpen(null)}
-                className="h-10 w-10 flex items-center justify-center rounded-full border border-white/15 hover:border-[#e3729e] hover:text-[#e3729e] transition-colors"
+                className="h-10 w-10 flex items-center justify-center rounded-full border border-white/15 hover:border-calma-pink hover:text-calma-pink transition-colors"
                 aria-label="Cerrar"
               >
                 <X className="h-5 w-5" />
@@ -398,7 +392,7 @@ export function BrandingGallery() {
                     e.stopPropagation()
                     step(-1)
                   }}
-                  className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 h-11 w-11 hidden sm:flex items-center justify-center rounded-full border border-white/15 bg-black/40 hover:border-[#e3729e] hover:text-[#e3729e] transition-colors"
+                  className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 h-11 w-11 hidden sm:flex items-center justify-center rounded-full border border-white/15 bg-black/40 hover:border-calma-pink hover:text-calma-pink transition-colors"
                   aria-label="Anterior"
                 >
                   <ChevronLeft className="h-5 w-5" />
@@ -409,7 +403,7 @@ export function BrandingGallery() {
                     e.stopPropagation()
                     step(1)
                   }}
-                  className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 h-11 w-11 hidden sm:flex items-center justify-center rounded-full border border-white/15 bg-black/40 hover:border-[#e3729e] hover:text-[#e3729e] transition-colors"
+                  className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 h-11 w-11 hidden sm:flex items-center justify-center rounded-full border border-white/15 bg-black/40 hover:border-calma-pink hover:text-calma-pink transition-colors"
                   aria-label="Siguiente"
                 >
                   <ChevronRight className="h-5 w-5" />
@@ -430,7 +424,7 @@ export function BrandingGallery() {
                   type="button"
                   onClick={() => setOpen({ brand: open.brand, piece: i })}
                   className={`shrink-0 h-12 sm:h-16 overflow-hidden border transition-all duration-300 ${
-                    i === open.piece ? "border-[#e3729e] opacity-100" : "border-transparent opacity-45 hover:opacity-80"
+                    i === open.piece ? "border-calma-pink opacity-100" : "border-transparent opacity-45 hover:opacity-80"
                   }`}
                   aria-label={`Ver ${p.alt}`}
                 >

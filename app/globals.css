@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -24,14 +23,21 @@
   --input: oklch(0.22 0.005 60);
   --ring: oklch(0.439 0 0);
 
-  --font-serif: 'Playfair Display', Georgia, serif;
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  /* Tipografías: cargadas con next/font en app/layout.tsx */
+  --font-serif: var(--font-playfair), Georgia, serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
 
-  /* CALMA Brand Colors */
-  --calma-pink: #e3729e;
-  --calma-pink-soft: #e7a4c0;
+  /* ── CALMA · tokens de marca ─────────────────────────────────────────────
+     Cuando llegue el manual de marca, se ajustan estos valores y todo el
+     sitio se actualiza. */
+  --calma-pink: #e3729e;        /* rosa de marca */
+  --calma-pink-soft: #e7a4c0;   /* hover / estados */
   --calma-pink-pale: #fbcbca;
   --calma-beige: #f3e4de;
+  --calma-ink: #050505;         /* negro base de las secciones */
+  --calma-on-pink: #ffffff;     /* texto sobre botones rosas (ver nota de contraste) */
+  --calma-line: rgb(255 255 255 / 0.8); /* líneas decorativas */
+  --calma-text-soft: rgb(255 255 255 / 0.82); /* textos de apoyo */
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
@@ -74,6 +80,7 @@
   --color-calma-pink-soft: var(--calma-pink-soft);
   --color-calma-pink-pale: var(--calma-pink-pale);
   --color-calma-beige: var(--calma-beige);
+  --color-calma-ink: var(--calma-ink);
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
@@ -109,6 +116,115 @@
   h5,
   h6 {
     @apply font-serif;
+  }
+}
+
+/* ─── CALMA · piezas del sistema (usadas por components/calma/ui.tsx) ──── */
+@layer components {
+  /* Título de sección: una sola escala fluida para todo el sitio */
+  .calma-title {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    line-height: 1.1;
+    font-size: clamp(2rem, 1.2rem + 2.4vw, 3rem);
+  }
+
+  /* Título en mayúsculas con líneas (Marcas y proyectos, Branding…) */
+  .calma-label {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    line-height: 1.2;
+    font-size: clamp(1.125rem, 0.8rem + 1.2vw, 2rem);
+  }
+
+  /* Párrafo de apoyo */
+  .calma-lead {
+    font-family: var(--font-sans);
+    font-size: clamp(1rem, 0.92rem + 0.3vw, 1.125rem);
+    line-height: 1.7;
+    color: var(--calma-text-soft);
+  }
+
+  /* Ítems de listas con línea rosa */
+  .calma-list-item {
+    font-family: var(--font-sans);
+    font-size: clamp(1.125rem, 1rem + 0.45vw, 1.375rem);
+    line-height: 1.35;
+    color: rgb(255 255 255 / 0.95);
+  }
+
+  /* Línea decorativa */
+  .calma-rule {
+    height: 1px;
+    background: var(--calma-line);
+  }
+
+  /* Botones */
+  .calma-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    border-radius: 0.5rem;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    white-space: nowrap;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  }
+  .calma-btn:focus-visible {
+    outline: 2px solid var(--calma-pink);
+    outline-offset: 3px;
+  }
+  .calma-btn:disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  .calma-btn svg {
+    width: 1rem;
+    height: 1rem;
+    transition: transform 0.3s ease;
+  }
+  .calma-btn:hover svg {
+    transform: translateX(2px);
+  }
+  .calma-btn--primary {
+    background: var(--calma-pink);
+    color: var(--calma-on-pink);
+  }
+  .calma-btn--primary:hover {
+    background: var(--calma-pink-soft);
+  }
+  .calma-btn--secondary {
+    background: #000;
+    color: #fff;
+    border: 1px solid rgb(255 255 255 / 0.14);
+  }
+  .calma-btn--secondary:hover {
+    background: rgb(255 255 255 / 0.06);
+    border-color: color-mix(in srgb, var(--calma-pink) 55%, transparent);
+  }
+
+  /* Campos de formulario: línea inferior, estilo editorial */
+  .calma-field {
+    width: 100%;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid rgb(255 255 255 / 0.22);
+    border-radius: 0;
+    padding: 0.7rem 0;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    color: #fff;
+    transition: border-color 0.3s ease;
+  }
+  .calma-field::placeholder {
+    color: rgb(255 255 255 / 0.4);
+  }
+  .calma-field:focus {
+    outline: none;
+    border-bottom-color: var(--calma-pink);
   }
 }
 
@@ -211,7 +327,7 @@
   border-radius: 9999px;
   color: #fff;
   background: rgba(0, 0, 0, 0.55);
-  border: 1px solid rgba(227, 114, 158, 0.6);
+  border: 1px solid color-mix(in srgb, var(--calma-pink) 60%, transparent);
   backdrop-filter: blur(6px);
   opacity: 0;
   transform: translateY(6px);
@@ -219,7 +335,7 @@
 }
 
 .brand-piece:focus-visible {
-  outline: 2px solid #e3729e;
+  outline: 2px solid var(--calma-pink);
   outline-offset: 3px;
 }
 
@@ -252,7 +368,7 @@
     transform: scale(1.05);
     box-shadow:
       0 30px 60px -18px rgba(0, 0, 0, 0.9),
-      0 0 0 1px rgba(227, 114, 158, 0.35);
+      0 0 0 1px color-mix(in srgb, var(--calma-pink) 35%, transparent);
     transition-delay: 0s;
   }
 
@@ -289,5 +405,13 @@
   .brand-gallery[data-reveal="ready"] .brand-block:not(.is-visible) {
     opacity: 1;
     transform: none;
+  }
+}
+
+/* Respetar a quienes prefieren menos movimiento */
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-marquee-logos {
+    animation-play-state: paused;
   }
 }
