@@ -43,36 +43,9 @@ export function DecorLine({ className }: { className?: string }) {
   return <span className={cn("calma-rule absolute block", className)} aria-hidden="true" />
 }
 
-/* Lista con línea vertical rosa y puntos (Calma en números, Cómo trabajamos) */
-export function PinkTimeline({
-  items,
-  ordered = false,
-  className,
-}: {
-  items: string[]
-  ordered?: boolean
-  className?: string
-}) {
-  const List = ordered ? "ol" : "ul"
-  return (
-    <List className={cn("relative space-y-3 sm:space-y-3.5 pl-8 sm:pl-9", className)}>
-      <span className="absolute left-[5px] top-3 bottom-3 w-[2px] bg-calma-pink" aria-hidden="true" />
-      {items.map((item) => (
-        <li key={item} className="calma-list-item relative">
-          <span
-            className="absolute -left-8 sm:-left-9 top-1/2 -translate-y-1/2 h-3 w-3 rounded-full bg-calma-pink"
-            aria-hidden="true"
-          />
-          {item}
-        </li>
-      ))}
-    </List>
-  )
-}
-
-/* Botón de la marca: primary (rosa) · secondary (negro con borde) · ghost-line */
+/* Botón de la marca: primary (rosa) · secondary (negro con borde) · dark (negro, para usar sobre rosa) */
 type CalmaButtonProps = ComponentPropsWithoutRef<"button"> & {
-  variant?: "primary" | "secondary"
+  variant?: "primary" | "secondary" | "dark"
   size?: "md" | "lg"
   asChild?: boolean
 }
@@ -83,7 +56,7 @@ export function CalmaButton({ variant = "primary", size = "md", asChild, classNa
     <Comp
       className={cn(
         "calma-btn",
-        variant === "primary" ? "calma-btn--primary" : "calma-btn--secondary",
+        `calma-btn--${variant}`,
         size === "lg" ? "h-12 px-7 text-[15px]" : "h-11 px-6 text-sm",
         className,
       )}

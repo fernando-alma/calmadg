@@ -2,7 +2,7 @@
 
 import { useEffect, useState, type FormEvent } from "react"
 import { BrandingGallery } from "@/components/branding-gallery"
-import { CalmaButton, DecorLine, Lead, LinedHeading, PinkTimeline, SectionTitle } from "@/components/calma/ui"
+import { CalmaButton, DecorLine, Lead, LinedHeading, SectionTitle } from "@/components/calma/ui"
 import { Check, ChevronRight, Instagram, Mail, MapPin, Menu, MessageCircle, X } from "lucide-react"
 
 /* ─── Datos del estudio ─────────────────────────────────────────────────── */
@@ -46,16 +46,16 @@ const CLIENT_LOGOS = [
 ]
 
 const STATS = [
-  "+5 años de experiencia",
-  "+40 marcas desarrolladas",
-  "+500 piezas gráficas",
-  "+30 identidades visuales",
-  "+100 campañas",
-  "+15 sitios web",
-  "+5000 fotografías profesionales",
+  { value: "+5", label: "años de experiencia" },
+  { value: "+40", label: "marcas desarrolladas" },
+  { value: "+500", label: "piezas gráficas" },
+  { value: "+30", label: "identidades visuales" },
+  { value: "+100", label: "campañas" },
+  { value: "+15", label: "sitios web" },
+  { value: "+5000", label: "fotografías profesionales" },
 ]
 
-const PROCESS = ["01 Descubrimiento", "02 Estrategia", "03 Diseño", "04 Producción", "05 Implementación"]
+const PROCESS = ["Descubrimiento", "Estrategia", "Diseño", "Producción", "Implementación"]
 
 const BENEFITS = [
   "Enfoque estratégico",
@@ -159,6 +159,26 @@ export default function CalmaPortfolio() {
       window.removeEventListener("keydown", onKey)
     }
   }, [isMenuOpen])
+
+  /* Entrada muy suave de cada sección al aparecer en pantalla */
+  useEffect(() => {
+    if (!("IntersectionObserver" in window)) return
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+    const root = document.documentElement
+    root.dataset.enter = "on"
+    const io = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("is-in")
+            io.unobserve(e.target)
+          }
+        }),
+      { rootMargin: "0px 0px -10% 0px", threshold: 0.12 },
+    )
+    document.querySelectorAll("[data-enter]").forEach((el) => io.observe(el))
+    return () => io.disconnect()
+  }, [])
 
   const solidHeader = scrolled || isMenuOpen
 
@@ -300,6 +320,7 @@ export default function CalmaPortfolio() {
         {/* ─── Diseñamos marcas que quieren crecer ─────────────────────── */}
         <section
           id="marcas"
+          data-enter
           className="bg-dark-wall relative w-full overflow-hidden text-white flex flex-col lg:flex-row lg:min-h-[640px] lg:h-[100dvh] lg:max-h-[900px]"
         >
           <div className="relative w-full lg:w-[55%] flex items-center justify-center lg:justify-end px-6 sm:px-10 md:px-16 lg:pl-16 lg:pr-12 xl:pr-16 py-20 sm:py-24 lg:py-0">
@@ -344,19 +365,34 @@ export default function CalmaPortfolio() {
         {/* ─── Calma en números ────────────────────────────────────────── */}
         <section
           id="numeros"
+          data-enter
           className="bg-dark-wall relative w-full overflow-hidden text-white flex flex-col lg:flex-row lg:min-h-[640px] lg:h-[100dvh] lg:max-h-[900px]"
         >
-          <div className="relative w-full lg:w-[55%] flex items-center px-6 sm:px-10 md:px-16 lg:pl-[7%] lg:pr-10 py-20 sm:py-24 lg:py-0">
-            <DecorLine className="top-8 sm:top-10 lg:top-[10%] left-0 w-[22%] lg:w-[9%]" />
-            <DecorLine className="bottom-[9%] right-0 w-[14%] hidden lg:block" />
+          <div className="relative w-full lg:w-[55%] lg:order-2 flex items-center px-6 sm:px-10 md:px-16 lg:pl-16 xl:pl-24 lg:pr-[7%] py-20 sm:py-24 lg:py-0">
+            <DecorLine className="top-8 sm:top-10 lg:top-[10%] right-0 w-[22%] lg:w-[9%]" />
+            <DecorLine className="bottom-[9%] left-0 w-[14%] hidden lg:block" />
 
             <div className="relative w-full max-w-xl">
               <SectionTitle>Calma en números</SectionTitle>
-              <PinkTimeline items={STATS} className="mt-8 sm:mt-10" />
+              <dl className="mt-8 sm:mt-10 grid grid-cols-2 gap-x-8 sm:gap-x-12">
+                {STATS.map((stat, i) => (
+                  <div
+                    key={stat.label}
+                    className={`flex flex-col-reverse border-t border-white/15 py-4 sm:py-5 ${
+                      i === STATS.length - 1 && STATS.length % 2 === 1 ? "col-span-2" : ""
+                    }`}
+                  >
+                    <dt className="mt-1.5 font-sans text-sm sm:text-[15px] text-white/80">{stat.label}</dt>
+                    <dd className="font-serif text-[2rem] sm:text-[2.6rem] font-bold leading-none text-calma-pink lining-nums">
+                      {stat.value}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
             </div>
           </div>
 
-          <div className="relative w-full lg:w-[45%] h-[85vw] sm:h-[70vw] max-h-[560px] lg:max-h-none lg:h-full">
+          <div className="relative w-full lg:w-[45%] lg:order-1 h-[85vw] sm:h-[70vw] max-h-[560px] lg:max-h-none lg:h-full">
             <img
               src="/images/calma-estudio.jpg"
               alt="Oficina de Calma Estudio de Diseño con el logo en la pared"
@@ -370,7 +406,7 @@ export default function CalmaPortfolio() {
         </section>
 
         {/* ─── Manifiesto ──────────────────────────────────────────────── */}
-        <section className="bg-dark-wall relative w-full overflow-hidden text-white py-24 sm:py-32">
+        <section data-enter className="bg-dark-wall relative w-full overflow-hidden text-white py-24 sm:py-32">
           <DecorLine className="top-10 sm:top-14 left-0 w-[22%] lg:w-[12%]" />
           <DecorLine className="bottom-10 sm:bottom-14 right-0 w-[22%] lg:w-[12%]" />
           <div className="relative mx-auto max-w-4xl px-6 sm:px-10 text-center">
@@ -387,6 +423,7 @@ export default function CalmaPortfolio() {
         {/* ─── Servicios ───────────────────────────────────────────────── */}
         <section
           id="servicios"
+          data-enter
           className="bg-dark-wall relative w-full overflow-hidden text-white lg:h-[100dvh] lg:min-h-[640px] lg:max-h-[900px] lg:flex lg:items-center"
         >
           <div className="w-full lg:h-full flex flex-col lg:flex-row lg:items-stretch lg:justify-between">
@@ -448,7 +485,7 @@ export default function CalmaPortfolio() {
         </section>
 
         {/* ─── Marcas y proyectos ──────────────────────────────────────── */}
-        <section className="bg-dark-wall relative w-full py-14 sm:py-20 overflow-hidden text-white">
+        <section data-enter className="bg-dark-wall relative w-full py-14 sm:py-20 overflow-hidden text-white">
           <LinedHeading className="mb-10 sm:mb-14">Marcas y Proyectos</LinedHeading>
           <div className="relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
             <div className="animate-marquee-logos flex items-center gap-16 sm:gap-20 md:gap-24">
@@ -475,6 +512,7 @@ export default function CalmaPortfolio() {
         {/* ─── Cómo trabajamos ─────────────────────────────────────────── */}
         <section
           id="como-trabajamos"
+          data-enter
           className="bg-dark-wall relative w-full overflow-hidden text-white flex flex-col lg:flex-row lg:items-stretch lg:min-h-[640px] lg:h-[100dvh] lg:max-h-[900px]"
         >
           <DecorLine className="top-8 sm:top-10 lg:top-[10%] left-1/2 -translate-x-1/2 lg:left-[41.5%] lg:translate-x-0 w-[22%] lg:w-[9%]" />
@@ -483,7 +521,16 @@ export default function CalmaPortfolio() {
           <div className="relative z-10 w-full lg:w-[52%] lg:order-2 flex items-center px-6 sm:px-10 md:px-16 lg:pl-[2%] lg:pr-[6%] pt-20 pb-8 sm:pt-24 lg:py-0">
             <div className="w-full max-w-xl mx-auto lg:mx-0">
               <SectionTitle>¿Cómo trabajamos?</SectionTitle>
-              <PinkTimeline items={PROCESS} className="mt-8 sm:mt-10 [&>li]:font-light" />
+              <ol className="mt-8 sm:mt-10 border-t border-white/15">
+                {PROCESS.map((step, i) => (
+                  <li key={step} className="flex items-baseline gap-5 sm:gap-7 border-b border-white/15 py-4 sm:py-5">
+                    <span aria-hidden="true" className="w-10 sm:w-12 shrink-0 font-serif text-2xl sm:text-3xl font-bold text-calma-pink lining-nums tabular-nums">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="font-sans text-lg sm:text-xl text-white/95">{step}</span>
+                  </li>
+                ))}
+              </ol>
             </div>
           </div>
 
@@ -503,6 +550,7 @@ export default function CalmaPortfolio() {
         {/* ─── ¿Por qué elegir Calma? ──────────────────────────────────── */}
         <section
           id="por-que-calma"
+          data-enter
           className="bg-dark-wall relative w-full overflow-hidden text-white flex flex-col lg:flex-row lg:items-stretch lg:min-h-[640px] lg:h-[100dvh] lg:max-h-[900px]"
         >
           <div className="relative z-10 w-full lg:w-[52%] flex items-center px-6 sm:px-10 md:px-16 lg:pl-[8%] lg:pr-6 py-20 sm:py-24 lg:py-0">
@@ -512,22 +560,22 @@ export default function CalmaPortfolio() {
               <ul className="mt-8 space-y-4 sm:space-y-[18px]">
                 {BENEFITS.map((benefit) => (
                   <li key={benefit} className="flex items-center gap-4">
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-calma-pink/15">
-                      <Check className="h-4 w-4 text-calma-pink" aria-hidden="true" />
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-calma-pink">
+                      <Check className="h-4 w-4 text-white" strokeWidth={2.5} aria-hidden="true" />
                     </span>
                     <span className="font-sans text-base sm:text-lg">{benefit}</span>
                   </li>
                 ))}
               </ul>
 
-              <div className="mt-8 sm:mt-10 rounded-xl border border-calma-pink/25 bg-calma-pink/[0.07] px-5 sm:px-6 py-6 text-center">
-                <p className="font-serif text-xl sm:text-2xl font-semibold leading-snug text-balance">
+              <div className="mt-8 sm:mt-10 rounded-xl bg-calma-pink text-calma-ink px-5 sm:px-7 py-7 text-center">
+                <p className="font-serif text-xl sm:text-2xl font-bold leading-snug text-balance">
                   ¿Querés potenciar tu marca?
                 </p>
-                <p className="mt-2 font-sans text-sm sm:text-base text-white/85 text-pretty">
+                <p className="mt-2 font-sans text-sm sm:text-base text-calma-ink/80 text-pretty">
                   Contanos tu proyecto y armamos una propuesta.
                 </p>
-                <CalmaButton asChild className="mt-5 w-full">
+                <CalmaButton asChild variant="dark" className="mt-5 w-full">
                   <a href="#contacto">Contactar ahora</a>
                 </CalmaButton>
               </div>
@@ -548,7 +596,7 @@ export default function CalmaPortfolio() {
         </section>
 
         {/* ─── Contacto ────────────────────────────────────────────────── */}
-        <section id="contacto" className="bg-dark-wall relative w-full overflow-hidden text-white py-24 sm:py-32">
+        <section id="contacto" data-enter className="bg-dark-wall relative w-full overflow-hidden text-white py-24 sm:py-32">
           <DecorLine className="top-10 sm:top-14 left-0 w-[22%] lg:w-[9%]" />
           <DecorLine className="bottom-10 sm:bottom-14 right-0 w-[22%] lg:w-[9%]" />
 
@@ -568,7 +616,7 @@ export default function CalmaPortfolio() {
                 ].map(({ icon: Icon, label, value, href }) => {
                   const body = (
                     <>
-                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-calma-pink/15 text-calma-pink transition-colors group-hover:bg-calma-pink group-hover:text-white">
+                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-calma-pink text-white transition-transform duration-500 ease-out group-hover:scale-110">
                         <Icon className="h-5 w-5" aria-hidden="true" />
                       </span>
                       <span>

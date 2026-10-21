@@ -206,6 +206,14 @@
     border-color: color-mix(in srgb, var(--calma-pink) 55%, transparent);
   }
 
+  .calma-btn--dark {
+    background: var(--calma-ink);
+    color: #fff;
+  }
+  .calma-btn--dark:hover {
+    background: #1c1c1c;
+  }
+
   /* Campos de formulario: línea inferior, estilo editorial */
   .calma-field {
     width: 100%;
@@ -425,4 +433,21 @@ html {
   .animate-marquee-logos {
     animation-play-state: paused;
   }
+}
+
+/* ─── Entrada suave de secciones (activada por JS en app/page.tsx) ─────── */
+html[data-enter="on"] [data-enter] > * {
+  transition:
+    opacity 1.1s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+html[data-enter="on"] [data-enter] > *:nth-child(2) {
+  transition-delay: 0.08s;
+}
+html[data-enter="on"] [data-enter] > *:nth-child(n + 3) {
+  transition-delay: 0.16s;
+}
+html[data-enter="on"] [data-enter]:not(.is-in) > * {
+  opacity: 0;
+  transform: translateY(16px);
 }
