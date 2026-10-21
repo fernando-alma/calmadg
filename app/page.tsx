@@ -704,9 +704,27 @@ export default function CalmaPortfolio() {
         </div>
 
         <div className="border-t border-white/10">
-          <p className="mx-auto max-w-6xl px-6 sm:px-10 py-6 font-sans text-xs text-white/45 text-center sm:text-left">
-            © {new Date().getFullYear()} Calma · Estudio de Diseño. Todos los derechos reservados.
-          </p>
+          <div className="mx-auto max-w-6xl px-6 sm:px-10 py-6 flex flex-col-reverse items-center gap-4 sm:flex-row sm:justify-between">
+            <p className="font-sans text-xs text-white/45 text-center sm:text-left">
+              © {new Date().getFullYear()} Calma · Estudio de Diseño. Todos los derechos reservados.
+            </p>
+            <a
+              href="https://soulware.com.ar/"
+              target="_blank"
+              rel="noopener"
+              className="group flex items-center gap-3 font-sans text-xs text-white/45 hover:text-white/80 transition-colors"
+            >
+              Desarrollado por
+              <img
+                src="/images/soulware-logo.webp"
+                alt="Soulware"
+                width={658}
+                height={147}
+                loading="lazy"
+                className="h-6 w-auto opacity-80 transition-opacity group-hover:opacity-100"
+              />
+            </a>
+          </div>
         </div>
       </footer>
     </div>
