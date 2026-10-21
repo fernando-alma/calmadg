@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
+import { BrandingGallery } from "@/components/branding-gallery"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -68,14 +69,25 @@ export default function CalmaPortfolio() {
     "Experiencia local y regional",
   ]
 
-  const process = [
-    { step: "01", title: "Análisis", description: "Conocemos tu marca" },
-    { step: "02", title: "Estrategia", description: "Definimos el rumbo" },
-    { step: "03", title: "Diseño y desarrollo", description: "Creación" },
-    { step: "04", title: "Implementación", description: "Puesta en marcha" },
+  const processSteps = [
+    "01 Descubrimiento",
+    "02 Estrategia",
+    "03 Diseño",
+    "04 Producción",
+    "05 Implementación",
   ]
 
-  const navItems = ["Inicio", "Servicios", "Cómo trabajamos", "Sobre Calma", "Contacto"]
+  const stats = [
+    "+5 años de experiencia",
+    "+40 marcas desarrolladas",
+    "+500 piezas gráficas",
+    "+30 identidades visuales",
+    "+100 campañas",
+    "+15 sitios web",
+    "+5000 fotografías profesionales",
+  ]
+
+  const navItems = ["Inicio", "Servicios", "Cómo trabajamos", "Contacto"]
 
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
@@ -251,6 +263,115 @@ export default function CalmaPortfolio() {
         </div>
       </section>
 
+      {/* Brand Statement Section (follows Hero) */}
+      <section
+        id="marcas"
+        className="bg-dark-wall relative w-full overflow-hidden text-white flex flex-col lg:flex-row lg:min-h-[640px] lg:h-[100dvh] lg:max-h-[900px]"
+      >
+        {/* Text column */}
+        <div className="relative w-full lg:w-[54%] flex items-center justify-center lg:justify-end px-6 sm:px-10 md:px-16 lg:pl-16 lg:pr-12 xl:pr-16 py-16 sm:py-20 lg:py-0">
+          {/* Decorative lines */}
+          <div className="absolute top-8 sm:top-10 lg:top-[13%] right-0 w-[40%] lg:w-[45%] h-px bg-white/80" aria-hidden="true" />
+          <div className="absolute bottom-6 sm:bottom-8 lg:bottom-[11%] left-0 w-[30%] lg:w-[24%] h-px bg-white/80" aria-hidden="true" />
+
+          <div className="relative w-full max-w-xl lg:max-w-[520px] flex flex-col items-center lg:items-end text-center lg:text-right">
+            <h2 className="font-serif font-bold leading-[1.1] text-[2rem] sm:text-5xl lg:text-[2.6rem] xl:text-5xl text-balance">
+              Diseñamos marcas que quieren crecer
+            </h2>
+
+            <p className="mt-6 sm:mt-8 font-sans text-base sm:text-lg lg:text-[17px] xl:text-lg leading-relaxed text-white/95 text-pretty">
+              Creamos identidades visuales, estrategias digitales y experiencias de comunicación que ayudan a las
+              empresas a posicionarse, diferenciarse y conectar con su audiencia. No diseñamos solamente piezas
+              gráficas. Diseñamos <strong className="font-semibold text-[#e3729e]">marcas con propósito.</strong>
+            </p>
+
+            <div className="mt-8 sm:mt-10 w-full lg:w-auto flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-end gap-3 sm:gap-4">
+              <Button
+                asChild
+                size="lg"
+                className="bg-[#e3729e] hover:bg-calma-pink-soft text-white font-semibold h-11 px-6"
+              >
+                <a href="#contacto">
+                  Solicitar propuesta
+                  <ChevronRight className="ml-1 h-4 w-4" />
+                </a>
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="bg-black border-white/10 hover:bg-white/10 hover:text-white text-white font-semibold h-11 px-6"
+              >
+                <a href="#servicios">Conocer servicios</a>
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        {/* Image column */}
+        <div className="relative w-full lg:w-[46%] h-[85vw] sm:h-[70vw] max-h-[560px] lg:max-h-none lg:h-full">
+          <img
+            src="/images/branding-mockup.jpg"
+            alt="Papelería y aplicaciones de marca de CALMA Estudio de Diseño"
+            width={1024}
+            height={1536}
+            loading="lazy"
+            className="absolute inset-0 w-full h-full object-cover object-center select-none"
+          />
+        </div>
+      </section>
+
+      {/* Calma en números */}
+      <section
+        id="numeros"
+        className="bg-dark-wall relative w-full overflow-hidden text-white flex flex-col lg:flex-row lg:min-h-[620px] lg:h-[100dvh] lg:max-h-[860px]"
+      >
+        {/* Text column */}
+        <div className="relative w-full lg:w-[56%] flex items-center px-6 sm:px-10 md:px-16 lg:pl-[7%] lg:pr-10 py-16 sm:py-20 lg:py-0">
+          {/* Decorative lines */}
+          <div className="absolute top-8 sm:top-10 lg:top-[10%] left-0 w-[22%] lg:w-[9%] h-px bg-white/80" aria-hidden="true" />
+          <div className="absolute bottom-6 sm:bottom-8 lg:bottom-[9%] right-0 w-[22%] lg:w-[14%] h-px bg-white/80 hidden lg:block" aria-hidden="true" />
+
+          <div className="relative w-full max-w-xl">
+            <h2 className="font-serif font-bold leading-tight text-4xl sm:text-5xl lg:text-[2.6rem] xl:text-5xl">
+              Calma en números
+            </h2>
+
+            <ul className="relative mt-8 sm:mt-10 space-y-3 sm:space-y-3.5 pl-8 sm:pl-9">
+              {/* Vertical pink line */}
+              <span
+                className="absolute left-[5px] top-3 bottom-3 w-[2px] bg-[#e3729e]"
+                aria-hidden="true"
+              />
+              {stats.map((item) => (
+                <li
+                  key={item}
+                  className="relative font-sans text-lg sm:text-xl lg:text-[19px] xl:text-[22px] leading-snug text-white/95"
+                >
+                  <span
+                    className="absolute -left-8 sm:-left-9 top-1/2 -translate-y-1/2 h-3 w-3 rounded-full bg-[#e3729e]"
+                    aria-hidden="true"
+                  />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Image column */}
+        <div className="relative w-full lg:w-[44%] h-[85vw] sm:h-[70vw] max-h-[560px] lg:max-h-none lg:h-full">
+          <img
+            src="/images/calma-estudio.jpg"
+            alt="Oficina de CALMA Estudio de Diseño con el logo en la pared"
+            width={1024}
+            height={1536}
+            loading="lazy"
+            className="absolute inset-0 w-full h-full object-cover object-center select-none"
+          />
+        </div>
+      </section>
+
       {/* Intro Block */}
       <section className="py-20 px-4">
         <div className="container mx-auto max-w-4xl text-center space-y-6">
@@ -345,12 +466,12 @@ export default function CalmaPortfolio() {
         className="bg-dark-wall relative w-full py-12 sm:py-16 overflow-hidden text-white"
       >
         {/* Title with flanking lines */}
-        <div className="flex items-center justify-center gap-4 sm:gap-8 px-6 sm:px-12 mb-10 sm:mb-14">
-          <div className="h-[1px] bg-white/40 flex-1 max-w-[120px] sm:max-w-[200px]" />
-          <h2 className="font-sans text-xs sm:text-sm md:text-base font-semibold tracking-[0.3em] sm:tracking-[0.4em] text-white/90 uppercase whitespace-nowrap select-none">
+        <div className="flex items-center justify-center gap-4 sm:gap-10 lg:gap-24 mb-10 sm:mb-14">
+          <div className="h-px bg-white/80 flex-1" aria-hidden="true" />
+          <h2 className="font-serif text-lg sm:text-2xl md:text-[28px] lg:text-[32px] font-bold tracking-[0.1em] text-white uppercase whitespace-nowrap select-none">
             Marcas y Proyectos
           </h2>
-          <div className="h-[1px] bg-white/40 flex-1 max-w-[120px] sm:max-w-[200px]" />
+          <div className="h-px bg-white/80 flex-1" aria-hidden="true" />
         </div>
 
         {/* Infinite Logo Marquee */}
@@ -380,86 +501,111 @@ export default function CalmaPortfolio() {
         </div>
       </section>
 
-      {/* Value Proposition */}
-      <section className="py-20 px-4">
-        <div className="container mx-auto max-w-5xl">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-8">
-              <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold">¿Por qué elegir Calma?</h2>
-
-              <ul className="space-y-4">
-                {benefits.map((benefit, index) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <div className="mt-1 p-1 rounded-full bg-calma-pink/10">
-                      <Check className="h-5 w-5 text-calma-pink" />
-                    </div>
-                    <span className="text-lg">{benefit}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <Card className="p-6 bg-calma-pink/10 border-calma-pink/30">
-                <p className="font-serif text-xl font-semibold mb-3">¿Querés una marca clara?</p>
-                <p className="text-muted-foreground mb-4">Hablemos de tu proyecto.</p>
-                <Button className="bg-calma-pink hover:bg-calma-pink-soft text-white">Contactar ahora</Button>
-              </Card>
-            </div>
-
-            <div className="relative aspect-square rounded-lg overflow-hidden">
-              <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/8%20%281%29-eDt0cGMO5yUCsxeKyjx4HxCOY4ijJU.png" alt="CALMA workspace" className="w-full h-full object-cover" />
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Branding Gallery */}
+      <BrandingGallery />
 
       {/* Process Section */}
-      <section id="cómo-trabajamos" className="py-20 px-4 bg-accent/30">
-        <div className="container mx-auto max-w-5xl">
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-16">Nuestro proceso</h2>
+      <section
+        id="cómo-trabajamos"
+        className="bg-dark-wall relative w-full overflow-hidden text-white scroll-mt-20 flex flex-col lg:flex-row lg:items-stretch lg:min-h-[620px] lg:h-[100dvh] lg:max-h-[860px]"
+      >
+        {/* Decorative lines */}
+        <div className="absolute top-8 sm:top-10 lg:top-[10%] left-1/2 -translate-x-1/2 lg:left-[41.5%] lg:translate-x-0 w-[22%] lg:w-[9%] h-px bg-white/80" aria-hidden="true" />
+        <div className="absolute bottom-6 sm:bottom-8 lg:bottom-[9%] right-0 w-[22%] lg:w-[9%] h-px bg-white/80" aria-hidden="true" />
 
-          <div className="grid md:grid-cols-2 gap-8">
-            {process.map((item, index) => (
-              <div
-                key={index}
-                className="relative p-8 rounded-lg bg-card border border-border hover:border-calma-pink/50 transition-all duration-300"
-              >
-                <div className="absolute -top-4 -left-4 w-12 h-12 rounded-full bg-calma-pink flex items-center justify-center text-white font-bold text-lg">
-                  {item.step}
-                </div>
-                <h3 className="font-serif text-2xl font-bold mb-2 mt-2">{item.title}</h3>
-                <p className="text-muted-foreground">{item.description}</p>
-              </div>
-            ))}
+        {/* Text column (first on mobile, right on desktop) */}
+        <div className="relative z-10 w-full lg:w-[52%] lg:order-2 flex items-center px-6 sm:px-10 md:px-16 lg:pl-[2%] lg:pr-[6%] pt-20 pb-8 sm:pt-24 lg:py-0">
+          <div className="w-full max-w-xl mx-auto lg:mx-0">
+            <h2 className="font-serif font-bold leading-tight text-4xl sm:text-5xl lg:text-[2.6rem] xl:text-5xl 2xl:text-[3.25rem]">
+              ¿Cómo trabajamos?
+            </h2>
+
+            <ol className="relative mt-8 sm:mt-10 space-y-3 sm:space-y-3.5 pl-8 sm:pl-9">
+              {/* Vertical pink line */}
+              <span
+                className="absolute left-[5px] -top-3 bottom-3 w-[2px] bg-[#e3729e]"
+                aria-hidden="true"
+              />
+              {processSteps.map((item) => (
+                <li
+                  key={item}
+                  className="relative font-sans font-light text-lg sm:text-xl lg:text-[19px] xl:text-[22px] leading-snug text-white/95"
+                >
+                  <span
+                    className="absolute -left-8 sm:-left-9 top-1/2 -translate-y-1/2 h-3 w-3 rounded-full bg-[#e3729e]"
+                    aria-hidden="true"
+                  />
+                  {item}
+                </li>
+              ))}
+            </ol>
           </div>
+        </div>
+
+        {/* Phone mockup */}
+        <div className="relative w-full lg:w-[48%] lg:order-1 flex items-center justify-center px-6 pb-14 pt-4 lg:p-0">
+          <img
+            src="/images/app-mockup.webp"
+            alt="App de gestión de proyectos de CALMA Estudio de Diseño en un celular"
+            width={695}
+            height={869}
+            loading="lazy"
+            className="w-[75%] max-w-[360px] sm:max-w-[420px] lg:w-auto lg:max-w-none lg:h-[74%] xl:h-[78%] object-contain select-none drop-shadow-[0_30px_40px_rgba(0,0,0,0.6)]"
+          />
         </div>
       </section>
 
-      {/* About Section */}
-      <section id="sobre-calma" className="py-20 px-4">
-        <div className="container mx-auto max-w-5xl">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="relative aspect-[4/3] rounded-lg overflow-hidden order-2 lg:order-1">
-              <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/9%20%281%29-8J9ItooIJcKqcxS3dJ2QxQUuVEZjqN.png" alt="Sobre CALMA" className="w-full h-full object-cover" />
-            </div>
+      {/* Value Proposition */}
+      <section
+        id="por-que-calma"
+        className="relative w-full overflow-hidden bg-black text-white flex flex-col lg:flex-row lg:items-stretch lg:min-h-[600px] lg:h-[100dvh] lg:max-h-[860px]"
+      >
+        {/* Text column */}
+        <div className="relative z-10 w-full lg:w-[52%] flex items-center px-6 sm:px-10 md:px-16 lg:pl-[8%] lg:pr-6 py-16 sm:py-20 lg:py-0">
+          <div className="w-full max-w-md sm:max-w-lg mx-auto lg:mx-0 lg:max-w-[440px]">
+            <h2 className="font-serif font-bold leading-tight text-4xl sm:text-5xl lg:text-[2.6rem] xl:text-5xl text-balance">
+              ¿Por qué elegir Calma?
+            </h2>
 
-            <div className="space-y-6 order-1 lg:order-2">
-              <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold">Sobre Calma</h2>
-              <div className="space-y-4 text-lg text-muted-foreground leading-relaxed">
-                <p>
-                  Calma es un estudio de diseño especializado en branding, estrategia de marca y contenido visual para
-                  negocios que buscan destacarse con profesionalismo y claridad.
-                </p>
-                <p>
-                  Creemos en el diseño como herramienta estratégica: no solo creamos una imagen atractiva, sino una
-                  identidad coherente que conecta con tu audiencia y refleja el valor de lo que hacés.
-                </p>
-                <p>
-                  Trabajamos con marcas en Mendoza, Argentina y toda la región, ofreciendo soluciones personalizadas que
-                  combinan creatividad, estrategia y resultados.
-                </p>
-              </div>
+            <ul className="mt-8 space-y-4 sm:space-y-[18px]">
+              {benefits.map((benefit) => (
+                <li key={benefit} className="flex items-center gap-4">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#e3729e]/15">
+                    <Check className="h-4 w-4 text-[#e3729e]" aria-hidden="true" />
+                  </span>
+                  <span className="font-sans text-base sm:text-lg lg:text-[17px] xl:text-lg">{benefit}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-8 sm:mt-10 rounded-xl border border-[#e3729e]/25 bg-[#e3729e]/[0.07] px-5 sm:px-6 py-6 text-center">
+              <p className="font-serif text-xl sm:text-2xl font-semibold leading-snug text-balance">
+                ¿Listos para potenciar tu marca?
+              </p>
+              <p className="mt-2 font-sans text-sm sm:text-base text-white/90 text-pretty">
+                Contanos tu proyecto y armamos una propuesta.
+              </p>
+              <Button
+                asChild
+                size="lg"
+                className="mt-5 w-full bg-[#e3729e] hover:bg-calma-pink-soft text-white font-semibold h-11"
+              >
+                <a href="#contacto">Contactar ahora</a>
+              </Button>
             </div>
           </div>
+        </div>
+
+        {/* Phones mockup */}
+        <div className="relative w-full lg:w-[48%] flex items-center justify-center px-6 pb-14 lg:p-0">
+          <img
+            src="/images/phones-mockup.webp"
+            alt="Sitio y servicios de CALMA Estudio de Diseño en pantallas de celular"
+            width={1080}
+            height={1350}
+            loading="lazy"
+            className="w-[88%] max-w-[440px] sm:max-w-[500px] lg:w-auto lg:max-w-full lg:h-[96%] object-contain select-none"
+          />
         </div>
       </section>
 
