@@ -241,6 +241,17 @@
   }
 }
 
+
+/* Los anclas (#servicios, #branding…) quedan debajo del header fijo, no tapadas */
+html {
+  scroll-padding-top: 5rem;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 /* ─── Shared dark-wall texture ─────────────────────────────────────────────
    background-attachment: fixed anchors the tile to the viewport, so adjacent
    sections using this class share the same texture position → no visible seam.

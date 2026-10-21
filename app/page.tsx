@@ -26,11 +26,11 @@ const MARQUEE = ["Branding", "Redes sociales", "Fotografía", "Diseño web", "Co
 
 const SERVICES = [
   { title: "Branding", description: "Construimos identidades visuales memorables." },
-  { title: "Gestión de Redes", description: "Creamos estrategias y contenido para conectar con clientes." },
-  { title: "Fotografía Profesional", description: "Imágenes profesionales para potenciar tu comunicación." },
-  { title: "Diseño Web", description: "Sitios modernos enfocados en experiencia y conversión." },
-  { title: "Contenido Multimedia", description: "Videos y piezas audiovisuales para campañas digitales." },
-  { title: "Papelería Corporativa", description: "Aplicaciones impresas alineadas con la identidad de marca." },
+  { title: "Gestión de redes", description: "Creamos estrategias y contenido para conectar con clientes." },
+  { title: "Fotografía profesional", description: "Imágenes profesionales para potenciar tu comunicación." },
+  { title: "Diseño web", description: "Sitios modernos enfocados en experiencia y conversión." },
+  { title: "Contenido multimedia", description: "Videos y piezas audiovisuales para campañas digitales." },
+  { title: "Papelería corporativa", description: "Aplicaciones impresas alineadas con la identidad de marca." },
 ]
 
 const CLIENT_LOGOS = [
@@ -146,6 +146,20 @@ export default function CalmaPortfolio() {
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
 
+  /* Menú móvil: Escape lo cierra, bloquea el scroll de fondo y lleva el foco al primer link */
+  useEffect(() => {
+    if (!isMenuOpen) return
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setIsMenuOpen(false)
+    const prev = document.body.style.overflow
+    document.body.style.overflow = "hidden"
+    window.addEventListener("keydown", onKey)
+    document.querySelector<HTMLAnchorElement>("#mobile-menu a")?.focus()
+    return () => {
+      document.body.style.overflow = prev
+      window.removeEventListener("keydown", onKey)
+    }
+  }, [isMenuOpen])
+
   const solidHeader = scrolled || isMenuOpen
 
   return (
@@ -157,9 +171,9 @@ export default function CalmaPortfolio() {
         }`}
       >
         <div className="mx-auto max-w-[1600px] px-4 sm:px-8 lg:px-12 py-4">
-          <div className="flex items-center justify-between">
-            <a href="#inicio" aria-label="CALMA Estudio de Diseño, ir al inicio">
-              <img src="/images/logo-calma.webp" alt="CALMA Estudio de Diseño" width={1262} height={433} className="h-10 sm:h-12 w-auto" />
+          <div className="grid grid-cols-[1fr_auto] lg:grid-cols-[1fr_auto_1fr] items-center gap-6">
+            <a href="#inicio" aria-label="Calma Estudio de Diseño, ir al inicio">
+              <img src="/images/logo-calma.webp" alt="Calma Estudio de Diseño" width={1262} height={433} className="h-10 sm:h-12 w-auto" />
             </a>
 
             <nav className="hidden lg:flex items-center gap-9" aria-label="Principal">
@@ -174,7 +188,7 @@ export default function CalmaPortfolio() {
               ))}
             </nav>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center justify-self-end gap-3">
               <CalmaButton asChild className="hidden md:inline-flex h-10 px-5">
                 <a href="#contacto">Hablemos</a>
               </CalmaButton>
@@ -192,7 +206,7 @@ export default function CalmaPortfolio() {
           </div>
 
           {isMenuOpen && (
-            <nav id="mobile-menu" className="lg:hidden mt-4 pb-4 border-t border-white/10" aria-label="Principal">
+            <nav id="mobile-menu" className="lg:hidden mt-4 pb-4 border-t border-white/10 max-h-[calc(100dvh-5rem)] overflow-y-auto" aria-label="Principal">
               {NAV.map((item) => (
                 <a
                   key={item.href}
@@ -258,8 +272,8 @@ export default function CalmaPortfolio() {
               <div className="w-[74%] h-[2px] sm:h-[2.5px] bg-calma-pink my-3 sm:my-4 self-center ml-[2.8%]" />
               <div className="w-full flex justify-end">
                 <h1 className="font-serif text-[13.5px] sm:text-[19px] md:text-[23px] lg:text-[26.5px] font-bold tracking-[0.13em] sm:tracking-[0.14em] uppercase leading-tight select-none">
-                  <span className="sr-only">CALMA Estudio de Diseño · </span>
-                  <span className="text-calma-pink">Brand</span> <span className="text-white">Design Studio</span>
+                  <span className="sr-only">Calma Estudio de Diseño · </span>
+                  <span lang="en" className="text-calma-pink">Brand</span> <span lang="en" className="text-white">Design Studio</span>
                 </h1>
               </div>
             </div>
@@ -288,7 +302,7 @@ export default function CalmaPortfolio() {
           id="marcas"
           className="bg-dark-wall relative w-full overflow-hidden text-white flex flex-col lg:flex-row lg:min-h-[640px] lg:h-[100dvh] lg:max-h-[900px]"
         >
-          <div className="relative w-full lg:w-[54%] flex items-center justify-center lg:justify-end px-6 sm:px-10 md:px-16 lg:pl-16 lg:pr-12 xl:pr-16 py-20 sm:py-24 lg:py-0">
+          <div className="relative w-full lg:w-[55%] flex items-center justify-center lg:justify-end px-6 sm:px-10 md:px-16 lg:pl-16 lg:pr-12 xl:pr-16 py-20 sm:py-24 lg:py-0">
             <DecorLine className="top-8 sm:top-10 lg:top-[13%] right-0 w-[40%] lg:w-[45%]" />
             <DecorLine className="bottom-6 sm:bottom-8 lg:bottom-[11%] left-0 w-[30%] lg:w-[24%]" />
 
@@ -314,10 +328,10 @@ export default function CalmaPortfolio() {
             </div>
           </div>
 
-          <div className="relative w-full lg:w-[46%] h-[85vw] sm:h-[70vw] max-h-[560px] lg:max-h-none lg:h-full">
+          <div className="relative w-full lg:w-[45%] h-[85vw] sm:h-[70vw] max-h-[560px] lg:max-h-none lg:h-full">
             <img
               src="/images/branding-mockup.jpg"
-              alt="Papelería y aplicaciones de marca de CALMA Estudio de Diseño"
+              alt="Papelería y aplicaciones de marca de Calma Estudio de Diseño"
               width={1024}
               height={1536}
               loading="lazy"
@@ -330,9 +344,9 @@ export default function CalmaPortfolio() {
         {/* ─── Calma en números ────────────────────────────────────────── */}
         <section
           id="numeros"
-          className="bg-dark-wall relative w-full overflow-hidden text-white flex flex-col lg:flex-row lg:min-h-[620px] lg:h-[100dvh] lg:max-h-[860px]"
+          className="bg-dark-wall relative w-full overflow-hidden text-white flex flex-col lg:flex-row lg:min-h-[640px] lg:h-[100dvh] lg:max-h-[900px]"
         >
-          <div className="relative w-full lg:w-[56%] flex items-center px-6 sm:px-10 md:px-16 lg:pl-[7%] lg:pr-10 py-20 sm:py-24 lg:py-0">
+          <div className="relative w-full lg:w-[55%] flex items-center px-6 sm:px-10 md:px-16 lg:pl-[7%] lg:pr-10 py-20 sm:py-24 lg:py-0">
             <DecorLine className="top-8 sm:top-10 lg:top-[10%] left-0 w-[22%] lg:w-[9%]" />
             <DecorLine className="bottom-[9%] right-0 w-[14%] hidden lg:block" />
 
@@ -342,10 +356,10 @@ export default function CalmaPortfolio() {
             </div>
           </div>
 
-          <div className="relative w-full lg:w-[44%] h-[85vw] sm:h-[70vw] max-h-[560px] lg:max-h-none lg:h-full">
+          <div className="relative w-full lg:w-[45%] h-[85vw] sm:h-[70vw] max-h-[560px] lg:max-h-none lg:h-full">
             <img
               src="/images/calma-estudio.jpg"
-              alt="Oficina de CALMA Estudio de Diseño con el logo en la pared"
+              alt="Oficina de Calma Estudio de Diseño con el logo en la pared"
               width={1024}
               height={1536}
               loading="lazy"
@@ -365,7 +379,7 @@ export default function CalmaPortfolio() {
             </SectionTitle>
             <Lead className="mt-6 sm:mt-8 mx-auto max-w-2xl">
               Acompañamos a marcas, emprendedores y negocios a construir una imagen profesional, coherente y alineada a
-              sus objetivos. No diseñamos solo lo visual: trabajamos la estrategia, el mensaje y la experiencia de marca.
+              sus objetivos, cuidando cada capa: la estrategia, el mensaje y la experiencia de marca.
             </Lead>
           </div>
         </section>
@@ -373,13 +387,13 @@ export default function CalmaPortfolio() {
         {/* ─── Servicios ───────────────────────────────────────────────── */}
         <section
           id="servicios"
-          className="bg-dark-wall relative w-full overflow-hidden text-white scroll-mt-20 lg:h-[100dvh] lg:min-h-[560px] lg:max-h-[1080px] lg:flex lg:items-center"
+          className="bg-dark-wall relative w-full overflow-hidden text-white lg:h-[100dvh] lg:min-h-[640px] lg:max-h-[900px] lg:flex lg:items-center"
         >
           <div className="w-full lg:h-full flex flex-col lg:flex-row lg:items-stretch lg:justify-between">
             <div className="w-full lg:w-[68%] lg:h-full flex flex-col justify-center pt-20 sm:pt-24 lg:pt-14 pb-10 lg:pb-2 pl-6 sm:pl-10 md:pl-16 lg:pl-20 xl:pl-24 pr-6 sm:pr-10 md:pr-14 lg:pr-14">
-              <div className="flex items-center gap-3 sm:gap-5 mb-6 sm:mb-8">
+              <div className="flex items-center sm:gap-5 mb-6 sm:mb-8">
                 <span
-                  className="calma-rule w-5 sm:w-10 md:w-16 lg:w-20 -ml-6 sm:-ml-10 md:-ml-16 lg:-ml-20 xl:-ml-24 flex-shrink-0"
+                  className="calma-rule hidden sm:block sm:w-10 md:w-16 lg:w-20 sm:-ml-10 md:-ml-16 lg:-ml-20 xl:-ml-24 flex-shrink-0"
                   aria-hidden="true"
                 />
                 <SectionTitle>Nuestros servicios</SectionTitle>
@@ -461,7 +475,7 @@ export default function CalmaPortfolio() {
         {/* ─── Cómo trabajamos ─────────────────────────────────────────── */}
         <section
           id="como-trabajamos"
-          className="bg-dark-wall relative w-full overflow-hidden text-white scroll-mt-20 flex flex-col lg:flex-row lg:items-stretch lg:min-h-[620px] lg:h-[100dvh] lg:max-h-[860px]"
+          className="bg-dark-wall relative w-full overflow-hidden text-white flex flex-col lg:flex-row lg:items-stretch lg:min-h-[640px] lg:h-[100dvh] lg:max-h-[900px]"
         >
           <DecorLine className="top-8 sm:top-10 lg:top-[10%] left-1/2 -translate-x-1/2 lg:left-[41.5%] lg:translate-x-0 w-[22%] lg:w-[9%]" />
           <DecorLine className="bottom-6 sm:bottom-8 lg:bottom-[9%] right-0 w-[22%] lg:w-[9%]" />
@@ -469,14 +483,14 @@ export default function CalmaPortfolio() {
           <div className="relative z-10 w-full lg:w-[52%] lg:order-2 flex items-center px-6 sm:px-10 md:px-16 lg:pl-[2%] lg:pr-[6%] pt-20 pb-8 sm:pt-24 lg:py-0">
             <div className="w-full max-w-xl mx-auto lg:mx-0">
               <SectionTitle>¿Cómo trabajamos?</SectionTitle>
-              <PinkTimeline items={PROCESS} ordered className="mt-8 sm:mt-10 [&>li]:font-light" />
+              <PinkTimeline items={PROCESS} className="mt-8 sm:mt-10 [&>li]:font-light" />
             </div>
           </div>
 
           <div className="relative w-full lg:w-[48%] lg:order-1 flex items-center justify-center px-6 pb-16 pt-4 lg:p-0">
             <img
               src="/images/app-mockup.webp"
-              alt="App de gestión de proyectos de CALMA Estudio de Diseño en un celular"
+              alt="App de gestión de proyectos de Calma Estudio de Diseño en un celular"
               width={695}
               height={869}
               loading="lazy"
@@ -489,7 +503,7 @@ export default function CalmaPortfolio() {
         {/* ─── ¿Por qué elegir Calma? ──────────────────────────────────── */}
         <section
           id="por-que-calma"
-          className="relative w-full overflow-hidden bg-black text-white flex flex-col lg:flex-row lg:items-stretch lg:min-h-[600px] lg:h-[100dvh] lg:max-h-[860px]"
+          className="bg-dark-wall relative w-full overflow-hidden text-white flex flex-col lg:flex-row lg:items-stretch lg:min-h-[640px] lg:h-[100dvh] lg:max-h-[900px]"
         >
           <div className="relative z-10 w-full lg:w-[52%] flex items-center px-6 sm:px-10 md:px-16 lg:pl-[8%] lg:pr-6 py-20 sm:py-24 lg:py-0">
             <div className="w-full max-w-md sm:max-w-lg mx-auto lg:mx-0 lg:max-w-[440px]">
@@ -508,7 +522,7 @@ export default function CalmaPortfolio() {
 
               <div className="mt-8 sm:mt-10 rounded-xl border border-calma-pink/25 bg-calma-pink/[0.07] px-5 sm:px-6 py-6 text-center">
                 <p className="font-serif text-xl sm:text-2xl font-semibold leading-snug text-balance">
-                  ¿Listos para potenciar tu marca?
+                  ¿Querés potenciar tu marca?
                 </p>
                 <p className="mt-2 font-sans text-sm sm:text-base text-white/85 text-pretty">
                   Contanos tu proyecto y armamos una propuesta.
@@ -523,7 +537,7 @@ export default function CalmaPortfolio() {
           <div className="relative w-full lg:w-[48%] flex items-center justify-center px-6 pb-16 lg:p-0">
             <img
               src="/images/phones-mockup.webp"
-              alt="Sitio y servicios de CALMA Estudio de Diseño en pantallas de celular"
+              alt="Sitio y servicios de Calma Estudio de Diseño en pantallas de celular"
               width={1080}
               height={1350}
               loading="lazy"
@@ -534,7 +548,7 @@ export default function CalmaPortfolio() {
         </section>
 
         {/* ─── Contacto ────────────────────────────────────────────────── */}
-        <section id="contacto" className="bg-dark-wall relative w-full overflow-hidden text-white scroll-mt-16 py-24 sm:py-32">
+        <section id="contacto" className="bg-dark-wall relative w-full overflow-hidden text-white py-24 sm:py-32">
           <DecorLine className="top-10 sm:top-14 left-0 w-[22%] lg:w-[9%]" />
           <DecorLine className="bottom-10 sm:bottom-14 right-0 w-[22%] lg:w-[9%]" />
 
@@ -592,7 +606,7 @@ export default function CalmaPortfolio() {
       <footer className="bg-black text-white border-t border-white/10">
         <div className="mx-auto max-w-6xl px-6 sm:px-10 py-14 sm:py-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr]">
           <div>
-            <img src="/images/logo-calma.webp" alt="CALMA Estudio de Diseño" width={1262} height={433} loading="lazy" className="h-12 w-auto" />
+            <img src="/images/logo-calma.webp" alt="Calma Estudio de Diseño" width={1262} height={433} loading="lazy" className="h-12 w-auto" />
             <p className="mt-5 max-w-xs font-sans text-sm leading-relaxed text-white/60">
               Estudio de diseño especializado en branding, estrategia de marca y contenido visual.
             </p>

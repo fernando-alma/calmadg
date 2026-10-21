@@ -206,6 +206,18 @@ export function BrandingGallery() {
   const columns = useColumns()
   const galleryRef = useRef<HTMLDivElement>(null)
   const touchX = useRef<number | null>(null)
+  const dialogRef = useRef<HTMLDivElement>(null)
+  const closeRef = useRef<HTMLButtonElement>(null)
+  const openerRef = useRef<HTMLElement | null>(null)
+  const isOpen = open !== null
+
+  /* Focus: al abrir va al botón cerrar; al cerrar vuelve a la pieza que lo abrió */
+  useEffect(() => {
+    if (!isOpen) return
+    openerRef.current = document.activeElement as HTMLElement | null
+    closeRef.current?.focus()
+    return () => openerRef.current?.focus()
+  }, [isOpen])
 
   /* Reveal brand blocks as they enter the viewport */
   useEffect(() => {
@@ -242,6 +254,25 @@ export function BrandingGallery() {
       if (e.key === "Escape") setOpen(null)
       if (e.key === "ArrowRight") step(1)
       if (e.key === "ArrowLeft") step(-1)
+      /* Mantener el Tab dentro del lightbox */
+      if (e.key === "Tab" && dialogRef.current) {
+        const items = Array.from(dialogRef.current.querySelectorAll<HTMLElement>("button:not([disabled])")).filter(
+          (el) => el.offsetParent !== null,
+        )
+        if (!items.length) return
+        const first = items[0]
+        const last = items[items.length - 1]
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault()
+          last.focus()
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault()
+          first.focus()
+        } else if (!dialogRef.current.contains(document.activeElement)) {
+          e.preventDefault()
+          first.focus()
+        }
+      }
     }
     const prev = document.body.style.overflow
     document.body.style.overflow = "hidden"
@@ -256,7 +287,7 @@ export function BrandingGallery() {
   const currentPiece = open && current ? current.pieces[open.piece] : null
 
   return (
-    <section id="branding" className="bg-dark-wall relative w-full overflow-hidden text-white pt-4 pb-20 sm:pb-28">
+    <section id="branding" className="bg-dark-wall relative w-full overflow-hidden text-white pt-10 sm:pt-12 pb-20 sm:pb-28">
       <LinedHeading className="mb-10 sm:mb-14">Branding</LinedHeading>
 
       {/* One big "window" (straight edges) full of windows of different sizes.
@@ -272,11 +303,11 @@ export function BrandingGallery() {
               return (
                 <article key={brand.id} className="brand-block flex flex-col shrink-0" style={{ flexGrow: blockH }}>
                   <header className="brand-meta flex-none flex items-baseline justify-between gap-4 mb-3 sm:mb-4">
-                    <div className="flex items-baseline gap-3 min-w-0">
+                    <div className="flex items-baseline gap-3 shrink-0">
                       <span className="h-px w-6 bg-calma-pink self-center shrink-0" aria-hidden="true" />
-                      <h3 className="font-serif text-lg sm:text-xl font-semibold truncate">{brand.name}</h3>
+                      <h3 className="font-serif text-lg sm:text-xl font-semibold whitespace-nowrap">{brand.name}</h3>
                     </div>
-                    <p className="font-sans text-[10px] sm:text-[11px] uppercase tracking-[0.22em] text-white/55 text-right shrink-0">
+                    <p className="min-w-0 truncate font-sans text-[10px] sm:text-[11px] uppercase tracking-[0.22em] text-white/55 text-right">
                       {brand.sector}
                     </p>
                   </header>
@@ -332,6 +363,7 @@ export function BrandingGallery() {
       {/* Lightbox */}
       {open && current && currentPiece && (
         <div
+          ref={dialogRef}
           role="dialog"
           aria-modal="true"
           aria-label={`${current.name}: ${currentPiece.alt}`}
@@ -361,6 +393,7 @@ export function BrandingGallery() {
                 {String(open.piece + 1).padStart(2, "0")} / {String(current.pieces.length).padStart(2, "0")}
               </span>
               <button
+                ref={closeRef}
                 type="button"
                 onClick={() => setOpen(null)}
                 className="h-10 w-10 flex items-center justify-center rounded-full border border-white/15 hover:border-calma-pink hover:text-calma-pink transition-colors"
